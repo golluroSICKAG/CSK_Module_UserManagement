@@ -36,17 +36,17 @@
                                                 style="align-items: stretch; flex-grow: 2">
                                                 <davinci-text-field id="TF_ParameterName" type="text"
                                                     title="Name of the parameters within the CSK_PersistentData module to be uses for this module.">
-                                                    <crown-edpws-binding property="value"
-                                                        name="CSK_UserManagement/OnNewParameterName" update-on-resume>
-                                                    </crown-edpws-binding>
-                                                    <crown-binding event="change"
-                                                        name="CSK_UserManagement/setParameterName"
-                                                        path="param/args/name" auto-commit>
-                                                    </crown-binding>
-                                                    <crown-edpws-binding property="disabled"
-                                                        name="CSK_UserManagement/OnPersistentDataModuleAvailable"
-                                                        update-on-resume converter="function(value) {return !value;}">
-                                                    </crown-edpws-binding>
+                                                    <crown-on property="value"
+                                                        crown-event="CSK_UserManagement/OnNewParameterName">
+                                                    </crown-on>
+                                                    <crown-set event="change"
+                                                        crown-function="CSK_UserManagement/setParameterName"
+                                                        protocol="crownMSGPACK" crown-path="name">
+                                                    </crown-set>
+                                                    <crown-on property="disabled"
+                                                        crown-event="CSK_UserManagement/OnPersistentDataModuleAvailable"
+                                                        converter="function(value) {return !value;}">
+                                                    </crown-on>
                                                 </davinci-text-field>
                                             </layout-column>
                                             <layout-column id="Column_PersistentDatax" style="align-items: stretch">
@@ -61,15 +61,14 @@
                                                                 title="Load configured parameters from CSK_PersistentData module.">
                                                                 <davinci-icon icon="action/history"></davinci-icon>
                                                                 <span></span>
-                                                                <crown-binding event="submit"
-                                                                    name="CSK_UserManagement/loadParameters"
-                                                                    auto-commit>
-                                                                </crown-binding>
-                                                                <crown-edpws-binding property="disabled"
-                                                                    name="CSK_UserManagement/OnPersistentDataModuleAvailable"
-                                                                    update-on-resume
+                                                                <crown-set event="submit"
+                                                                    crown-function="CSK_UserManagement/loadParameters"
+                                                                    protocol="crownMSGPACK">
+                                                                </crown-set>
+                                                                <crown-on property="disabled"
+                                                                    crown-event="CSK_UserManagement/OnPersistentDataModuleAvailable"
                                                                     converter="function(value) {return !value;}">
-                                                                </crown-edpws-binding>
+                                                                </crown-on>
                                                             </davinci-button>
                                                             <davinci-button id="B_SaveConfig"
                                                                 class="myCustomButton_CSK_Module_UserManagement"
@@ -77,15 +76,14 @@
                                                                 title="Save current configured parameters of this module within CSK_PersistentData module.">
                                                                 <davinci-icon icon="content/save"></davinci-icon>
                                                                 <span></span>
-                                                                <crown-binding event="submit"
-                                                                    name="CSK_UserManagement/sendParameters"
-                                                                    auto-commit>
-                                                                </crown-binding>
-                                                                <crown-edpws-binding property="disabled"
-                                                                    name="CSK_UserManagement/OnPersistentDataModuleAvailable"
-                                                                    update-on-resume
+                                                                <crown-set event="submit"
+                                                                    crown-function="CSK_UserManagement/sendParameters"
+                                                                    protocol="crownMSGPACK">
+                                                                </crown-set>
+                                                                <crown-on property="disabled"
+                                                                    crown-event="CSK_UserManagement/OnPersistentDataModuleAvailable"
                                                                     converter="function(value) {return !value;}">
-                                                                </crown-edpws-binding>
+                                                                </crown-on>
                                                             </davinci-button>
                                                         </layout-row>
                                                     </layout-column>
@@ -116,19 +114,18 @@
                                                                         <davinci-checkbox id="CB_LoadConfig"
                                                                             title="Load configured parameters from CSK_PersistentData on app start.">
                                                                             <span></span>
-                                                                            <crown-edpws-binding property="checked"
-                                                                                name="CSK_UserManagement/OnNewStatusLoadParameterOnReboot"
-                                                                                update-on-resume>
-                                                                            </crown-edpws-binding>
-                                                                            <crown-edpws-binding property="disabled"
-                                                                                name="CSK_UserManagement/OnPersistentDataModuleAvailable"
-                                                                                update-on-resume
+                                                                            <crown-on property="checked"
+                                                                                crown-event="CSK_UserManagement/OnNewStatusLoadParameterOnReboot">
+                                                                            </crown-on>
+                                                                            <crown-on property="disabled"
+                                                                                crown-event="CSK_UserManagement/OnPersistentDataModuleAvailable"
                                                                                 converter="function(value) {return !value;}">
-                                                                            </crown-edpws-binding>
-                                                                            <crown-binding event="change"
-                                                                                name="CSK_UserManagement/setLoadOnReboot"
-                                                                                path="param/args/status" auto-commit>
-                                                                            </crown-binding>
+                                                                            </crown-on>
+                                                                            <crown-set event="change"
+                                                                                crown-function="CSK_UserManagement/setLoadOnReboot"
+                                                                                protocol="crownMSGPACK"
+                                                                                crown-path="status">
+                                                                            </crown-set>
                                                                         </davinci-checkbox>
                                                                     </layout-row>
                                                                 </layout-column>
@@ -153,9 +150,9 @@
 									</span>
                                 </davinci-callout>
                             </stacked-pane>
-                            <crown-edpws-binding property="value" name="CSK_UserManagement/OnUserLevelMaintenanceActive"
-                                update-on-resume converter="function(value) {return value.toString();}">
-                            </crown-edpws-binding>
+                            <crown-on property="value" crown-event="CSK_UserManagement/OnUserLevelMaintenanceActive"
+                                converter="function(value) {return value.toString();}">
+                            </crown-on>
                         </stacked-view>
                     </layout-column>
                 </layout-row>
@@ -177,43 +174,42 @@
                                     label="User" style="align-self: flex-start">
                                 </davinci-value-display>
                                 <curie-callout id="DC_LoggedUser">
-                                    <crown-edpws-binding property="value" name="CSK_UserManagement/OnNewLoggedInUser"
-                                        update-on-resume>
-                                    </crown-edpws-binding>
+                                    <crown-on property="value" crown-event="CSK_UserManagement/OnNewLoggedInUser">
+                                    </crown-on>
                                 </curie-callout>
                                 <davinci-drop-down id="DD_User" label="User:">
-                                    <crown-edpws-binding property="data" name="CSK_UserManagement/OnNewUserList"
-                                        update-on-resume converter="convertToList">
-                                    </crown-edpws-binding>
-                                    <crown-edpws-binding property="value" name="CSK_UserManagement/OnNewUserToLogIn"
-                                        update-on-resume>
-                                    </crown-edpws-binding>
-                                    <crown-binding event="change" name="CSK_UserManagement/setLoginUser"
-                                        path="param/args/user" auto-commit>
-                                    </crown-binding>
+                                    <crown-on property="data" crown-event="CSK_UserManagement/OnNewUserList"
+                                        converter="convertToList">
+                                    </crown-on>
+                                    <crown-on property="value" crown-event="CSK_UserManagement/OnNewUserToLogIn">
+                                    </crown-on>
+                                    <crown-set event="change" crown-function="CSK_UserManagement/setLoginUser"
+                                        protocol="crownMSGPACK" crown-path="user">
+                                    </crown-set>
                                 </davinci-drop-down>
                                 <davinci-text-field id="TF_Password" type="password" label="Password:">
-                                    <crown-binding event="change" name="CSK_UserManagement/setLoginPassword"
-                                        path="param/args/password" auto-commit>
-                                    </crown-binding>
-                                    <crown-edpws-binding property="value" name="CSK_UserManagement/OnNewLogInPassword"
-                                        update-on-resume>
-                                    </crown-edpws-binding>
+                                    <crown-set event="change" crown-function="CSK_UserManagement/setLoginPassword"
+                                        protocol="crownMSGPACK" crown-path="password">
+                                    </crown-set>
+                                    <crown-on property="value" crown-event="CSK_UserManagement/OnNewLogInPassword">
+                                    </crown-on>
                                 </davinci-text-field>
                                 <layout-row id="RowLayout7" style="justify-content: flex-end">
                                     <davinci-button id="B_Login" class="myCustomButton_CSK_Module_UserManagement"
                                         type="primary" title="Login">
                                         <davinci-icon icon="navigation/arrow_forward"></davinci-icon>
                                         <span></span>
-                                        <crown-binding event="submit" name="CSK_UserManagement/login" auto-commit>
-                                        </crown-binding>
+                                        <crown-set event="submit" crown-function="CSK_UserManagement/login"
+                                            protocol="crownMSGPACK">
+                                        </crown-set>
                                     </davinci-button>
                                     <davinci-button id="B_Logout" class="myCustomButton_CSK_Module_UserManagement"
                                         type="outline" title="Logout">
                                         <davinci-icon icon="navigation/subdirectory_arrow_left"></davinci-icon>
                                         <span></span>
-                                        <crown-binding event="submit" name="CSK_UserManagement/logout" auto-commit>
-                                        </crown-binding>
+                                        <crown-set event="submit" crown-function="CSK_UserManagement/logout"
+                                            protocol="crownMSGPACK">
+                                        </crown-set>
                                     </davinci-button>
                                 </layout-row>
                                 <stacked-view id="SV_WrongPassword">
@@ -224,10 +220,9 @@
                                     </stacked-pane>
                                     <stacked-pane id="SP_NoPasswordInfo" value="true">
                                     </stacked-pane>
-                                    <crown-edpws-binding property="value"
-                                        name="CSK_UserManagement/OnNewHideWrongPassword" update-on-resume
+                                    <crown-on property="value" crown-event="CSK_UserManagement/OnNewHideWrongPassword"
                                         converter="function(value) {return value.toString();}">
-                                    </crown-edpws-binding>
+                                    </crown-on>
                                 </stacked-view>
                             </layout-column>
                         </layout-row>
@@ -246,14 +241,13 @@
                                             <layout-column id="ColumnLayout3"
                                                 style="align-items: stretch; flex-grow: 3">
                                                 <davinci-text-field id="TF_NewUser" type="text" label="New username">
-                                                    <crown-binding event="change"
-                                                        name="CSK_UserManagement/setNewUsername" path="param/args/name"
-                                                        auto-commit>
-                                                    </crown-binding>
-                                                    <crown-edpws-binding property="value"
-                                                        name="CSK_UserManagement/OnNewStatusUsernameToCreate"
-                                                        update-on-resume>
-                                                    </crown-edpws-binding>
+                                                    <crown-set event="change"
+                                                        crown-function="CSK_UserManagement/setNewUsername"
+                                                        protocol="crownMSGPACK" crown-path="name">
+                                                    </crown-set>
+                                                    <crown-on property="value"
+                                                        crown-event="CSK_UserManagement/OnNewStatusUsernameToCreate">
+                                                    </crown-on>
                                                 </davinci-text-field>
                                             </layout-column>
                                             <layout-column id="ColumnLayout4" style="align-items: stretch">
@@ -263,18 +257,20 @@
                                                         title="Add User">
                                                         <davinci-icon icon="content/add"></davinci-icon>
                                                         <span></span>
-                                                        <crown-binding event="submit" name="CSK_UserManagement/addUser"
-                                                            auto-commit>
-                                                        </crown-binding>
+                                                        <crown-set event="submit"
+                                                            crown-function="CSK_UserManagement/addUser"
+                                                            protocol="crownMSGPACK">
+                                                        </crown-set>
                                                     </davinci-button>
                                                     <davinci-button id="B_RemoveUser"
                                                         class="myCustomButton_CSK_Module_UserManagement" type="outline"
                                                         title="Remove selected user">
                                                         <davinci-icon icon="action/delete"></davinci-icon>
                                                         <span></span>
-                                                        <crown-binding event="submit"
-                                                            name="CSK_UserManagement/removeUser" auto-commit>
-                                                        </crown-binding>
+                                                        <crown-set event="submit"
+                                                            crown-function="CSK_UserManagement/removeUser"
+                                                            protocol="crownMSGPACK">
+                                                        </crown-set>
                                                     </davinci-button>
                                                 </layout-row>
                                             </layout-column>
@@ -284,34 +280,34 @@
                                         <curie-table id="DT_UserList" selectable select-mode="highlight_row">
                                             <curie-table-column id="User" header="User" title="User">
                                             </curie-table-column>
-                                            <crown-edpws-binding property="data"
-                                                name="CSK_UserManagement/OnNewUserTableList" update-on-resume>
-                                            </crown-edpws-binding>
-                                            <crown-binding event="row-selected"
-                                                name="CSK_UserManagement/selectedUserViaTable"
-                                                path="param/args/selection" auto-commit>
-                                            </crown-binding>
+                                            <crown-on property="data"
+                                                crown-event="CSK_UserManagement/OnNewUserTableList">
+                                            </crown-on>
+                                            <crown-set event="row-selected"
+                                                crown-function="CSK_UserManagement/selectedUserViaTable"
+                                                protocol="crownMSGPACK" crown-path="selection">
+                                            </crown-set>
                                         </curie-table>
                                         <davinci-value-display id="VD_SelectUser" value=""
                                             label="Selected user to update:">
-											<crown-on property="value"
-												crown-event="CSK_UserManagement/OnNewUserToUpdate">
-											</crown-on>
+                                            <crown-on property="value"
+                                                crown-event="CSK_UserManagement/OnNewUserToUpdate">
+                                            </crown-on>
                                         </davinci-value-display>
                                         <davinci-text-field id="TF_NewPassword" type="password" label="New Password:"
                                             title="Set new password for selected user">
-                                            <crown-binding event="change" name="CSK_UserManagement/setNewPassword"
-                                                path="param/args/password" auto-commit>
-                                            </crown-binding>
-                                            <crown-edpws-binding property="value"
-                                                name="CSK_UserManagement/OnNewPasswordToUpdate" update-on-resume>
-                                            </crown-edpws-binding>
+                                            <crown-set event="change" crown-function="CSK_UserManagement/setNewPassword"
+                                                protocol="crownMSGPACK" crown-path="password">
+                                            </crown-set>
+                                            <crown-on property="value"
+                                                crown-event="CSK_UserManagement/OnNewPasswordToUpdate">
+                                            </crown-on>
                                         </davinci-text-field>
                                         <davinci-callout id="CO_PasswordUpdated" type="success">
                                             <span>New password active.</span>
-                                            <crown-edpws-binding property="hidden"
-                                                name="CSK_UserManagement/OnNewHidePasswordInfo" update-on-resume>
-                                            </crown-edpws-binding>
+                                            <crown-on property="hidden"
+                                                crown-event="CSK_UserManagement/OnNewHidePasswordInfo">
+                                            </crown-on>
                                         </davinci-callout>
                                         <davinci-drop-down id="DD_UserLevel" label="User level"
                                             title="Set new role for selected user.">
@@ -327,12 +323,13 @@
                                             <davinci-option id="Option4" value="Admin">
                                                 <span>Admin</span>
                                             </davinci-option>
-                                            <crown-binding event="change" name="CSK_UserManagement/setNewUserLevel"
-                                                path="param/args/level" auto-commit>
-                                            </crown-binding>
-                                            <crown-edpws-binding property="value"
-                                                name="CSK_UserManagement/OnNewUserLevelToUpdate" update-on-resume>
-                                            </crown-edpws-binding>
+                                            <crown-set event="change"
+                                                crown-function="CSK_UserManagement/setNewUserLevel"
+                                                protocol="crownMSGPACK" crown-path="level">
+                                            </crown-set>
+                                            <crown-on property="value"
+                                                crown-event="CSK_UserManagement/OnNewUserLevelToUpdate">
+                                            </crown-on>
                                         </davinci-drop-down>
                                         <layout-row id="RowLayout4"
                                             class="myCustomSpacerVert20_CSK_Module_UserManagement">
@@ -341,21 +338,20 @@
                                 </layout-row>
                             </stacked-pane>
                             <stacked-pane id="SP_NoAdmin" value="false"></stacked-pane>
-                            <crown-edpws-binding property="value" name="CSK_UserManagement/OnUserLevelAdminActive"
-                                update-on-resume converter="function(value) {return value.toString();}">
-                            </crown-edpws-binding>
+                            <crown-on property="value" crown-event="CSK_UserManagement/OnUserLevelAdminActive"
+                                converter="function(value) {return value.toString();}">
+                            </crown-on>
                         </stacked-view>
                     </layout-column>
                 </layout-row>
             </layout-column>
         </layout-row>
         <stacked-view id="SV_PageCalled">
-            <crown-binding property="value" name="CSK_UserManagement/pageCalled" path="result/data/empty"
-                auto-update="0" update-on-resume>
-            </crown-binding>
-            <crown-edpws-binding property="value" name="CSK_UserManagement/OnNewStatusCSKStyle" update-on-resume
-                converter="changeStyle">
-            </crown-edpws-binding>
+            <crown-get property="value" crown-function="CSK_UserManagement/pageCalled" protocol="crownMSGPACK"
+                crown-path="empty" auto-update-ms="0">
+            </crown-get>
+            <crown-on property="value" crown-event="CSK_UserManagement/OnNewStatusCSKStyle" converter="changeStyle">
+            </crown-on>
         </stacked-view>
     </layout-column>
 </layout-row>

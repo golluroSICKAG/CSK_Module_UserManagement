@@ -184,7 +184,7 @@ Default password for user "Admin" is "admin". +
             </serves>
         </crown>
         <meta key="author">SICK AG</meta>
-        <meta key="version">1.6.0</meta>
+        <meta key="version">1.6.1</meta>
         <meta key="priority">low</meta>
         <meta key="copy-protected">false</meta>
         <meta key="read-protected">false</meta>
